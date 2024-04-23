@@ -1,10 +1,44 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+
+import {
+  APP_INIT_ERROR,
+  APP_READY,
+  configureStore,
+  initialize,
+  subscribe,
+} from '@edx/frontend-platform';
+import {
+  AppProvider,
+  ErrorPage,
+} from '@edx/frontend-platform/react';
+
 import App from './App.tsx'
 import './index.css'
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+const messages = {};  // TODO: each MFE needs to load its messages separately.
+
+subscribe(APP_READY, () => {
+  ReactDOM.createRoot(document.getElementById('root')!).render(
+    <React.StrictMode>
+      {/* <AppProvider store={configureStore()}> */}
+        {/* <Header /> */}
+        <main id="main">
+            <App />
+        </main>
+        {/* <Footer /> */}
+      {/* </AppProvider> */}
+    </React.StrictMode>
+  );
+});
+
+subscribe(APP_INIT_ERROR, (error: unknown) => {
+  ReactDOM.createRoot(document.getElementById('root')!).render(
+    <ErrorPage message={error && typeof error === "object" && 'message' in error ? error.message : error} />
+  );
+});
+
+initialize({
+  messages,
+  hydrateAuthenticatedUser: true,
+});
