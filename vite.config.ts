@@ -39,8 +39,8 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: [
         {find: 'env.config', replacement: path.resolve(__dirname, 'env.config.tsx')},
-        // {find: '~bootstrap', replacement: path.resolve(__dirname, 'node_modules/bootstrap/')},
-        // {find: '~react-loading-skeleton', replacement: path.resolve(__dirname, 'node_modules/react-loading-skeleton/')},
+        {find: '~bootstrap', replacement: path.resolve(__dirname, 'node_modules/bootstrap/')},
+        {find: '~react-loading-skeleton', replacement: path.resolve(__dirname, 'node_modules/react-loading-skeleton/')},
       ],
     },
     define,

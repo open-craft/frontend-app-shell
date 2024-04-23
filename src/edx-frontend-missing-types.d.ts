@@ -24,6 +24,12 @@ declare module '@edx/frontend-platform/i18n' {
     } from 'react-intl';
 }
 
+declare module '@edx/frontend-component-header' {
+    const Header: React.FC<any>;
+    export default Header;
+}
+
+
 declare module '@edx/frontend-component-footer' {
     const Footer: React.FC<any>;
     export default Footer;

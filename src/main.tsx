@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom/client'
 import {
   APP_INIT_ERROR,
   APP_READY,
-  configureStore,
   initialize,
   subscribe,
 } from '@edx/frontend-platform';
@@ -13,21 +12,23 @@ import {
   ErrorPage,
 } from '@edx/frontend-platform/react';
 
+import Header from '@edx/frontend-component-header';
+
 import App from './App.tsx'
-import './index.css'
+import './index.scss'
 
 const messages = {};  // TODO: each MFE needs to load its messages separately.
 
 subscribe(APP_READY, () => {
   ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
-      {/* <AppProvider store={configureStore()}> */}
-        {/* <Header /> */}
+      <AppProvider store={undefined} wrapWithRouter={false}>
+        <Header />
         <main id="main">
             <App />
         </main>
         {/* <Footer /> */}
-      {/* </AppProvider> */}
+      </AppProvider>
     </React.StrictMode>
   );
 });

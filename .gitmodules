@@ -1,3 +1,6 @@
 [submodule "frontend-platform"]
 	path = frontend-platform
 	url = https://github.com/open-craft/frontend-platform.git
+[submodule "frontend-component-header"]
+	path = frontend-component-header
+	url = https://github.com/open-craft/frontend-component-header.git
