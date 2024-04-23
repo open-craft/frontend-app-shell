@@ -13,6 +13,7 @@ import {
 } from '@edx/frontend-platform/react';
 
 import Header from '@edx/frontend-component-header';
+import Footer from '@edx/frontend-component-footer';
 
 import App from './App.tsx'
 import './index.scss'
@@ -27,7 +28,7 @@ subscribe(APP_READY, () => {
         <main id="main">
             <App />
         </main>
-        {/* <Footer /> */}
+        <Footer />
       </AppProvider>
     </React.StrictMode>
   );
