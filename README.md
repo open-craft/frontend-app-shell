@@ -1,5 +1,7 @@
 # Basic Frontend Shell Demo (with Vite)
 
+![Screenshot](./screenshot.png)
+
 
 ## What this demonstrates
 
