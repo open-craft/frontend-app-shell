@@ -37,6 +37,11 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [react(), htmlTagsPlugin(env)],
     resolve: {
+      dedupe: [
+        "@edx/frontend-platform",
+        "react",
+        "react-dom",
+      ],
       alias: [
         {find: 'env.config', replacement: path.resolve(__dirname, 'env.config.tsx')},
         {find: '~bootstrap', replacement: path.resolve(__dirname, 'node_modules/bootstrap/')},

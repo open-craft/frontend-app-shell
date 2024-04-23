@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-
 import {
   APP_INIT_ERROR,
   APP_READY,
@@ -10,12 +9,13 @@ import {
 import {
   AppProvider,
   ErrorPage,
+  ErrorBoundary,
 } from '@edx/frontend-platform/react';
 
 import Header from '@edx/frontend-component-header';
 import Footer from '@edx/frontend-component-footer';
 
-import App from './App.tsx'
+import App from './App';
 import './index.scss'
 
 const messages = {};  // TODO: each MFE needs to load its messages separately.
@@ -26,7 +26,9 @@ subscribe(APP_READY, () => {
       <AppProvider store={undefined} wrapWithRouter={false}>
         <Header />
         <main id="main">
+          <ErrorBoundary>
             <App />
+          </ErrorBoundary>
         </main>
         <Footer />
       </AppProvider>

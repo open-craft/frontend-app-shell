@@ -11,7 +11,9 @@ declare module '@edx/frontend-platform' {
 
 declare module '@edx/frontend-platform/react' {
   const AppProvider: React.FC<any>;
+  const AppContext: React.Context<any>;
   const ErrorPage: React.FC<any>;
+  const ErrorBoundary: React.FC<any>;
 }
 
 declare module '@edx/frontend-platform/i18n' {

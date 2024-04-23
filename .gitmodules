@@ -7,3 +7,6 @@
 [submodule "frontend-component-footer"]
 	path = frontend-component-footer
 	url = https://github.com/open-craft/frontend-component-footer.git
+[submodule "frontend-app-profile"]
+	path = frontend-app-profile
+	url = https://github.com/open-craft/frontend-app-profile.git

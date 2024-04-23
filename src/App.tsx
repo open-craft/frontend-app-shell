@@ -1,34 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { Suspense } from 'react';
+import { getConfig } from '@edx/frontend-platform';
+import { AppContext } from '@edx/frontend-platform/react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
+import { LoadProfileMFE } from './LoadProfileMFE';
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { authenticatedUser } = React.useContext(AppContext);
+  const username = authenticatedUser?.username ?? '';
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <Suspense fallback={'...'}>
+      <Router>
+        <Routes>
+          <Route path="/profile/*" element={<LoadProfileMFE />} />
+          <Route path="/" element={
+            <p className="my-3 text-center">
+              Home page for all MFEs. You can use the header to navigate but it doesn't yet support soft reload.
+              Here's a "soft" link to your profile: <Link to={`${getConfig().ACCOUNT_PROFILE_URL}/u/${username}`}>Profile MFE</Link>
+            </p>
+          } />
+        </Routes>
+      </Router>
+    </Suspense>
   )
 }
 
