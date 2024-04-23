@@ -16,6 +16,7 @@
 
     /* Linting */
     "strict": true,
+    "noImplicitAny": false,  // Work around temporary lack of type data
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true

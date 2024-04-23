@@ -19,6 +19,9 @@
 ## What's shared
 
 * Only one version of `react`, `react-dom`, `frontend-platform`, and `paragon` is loaded.
+* Paragon's overall SCSS rules are provided by the shell. (Each MFE can still provide its own SCSS and use Paragon
+  variables and mixins but must be careful not to include the "main" Paragon rules, which would increase the build
+  size and be redudnant.)
 * The header and footer are provided by the shell.
 * The overall `BrowserRouter` from `react-router` is provided by the shell.
 * Overall initialization of `frontend-platform` and React are done by the shell, which includes setting up the
