@@ -34,7 +34,6 @@
 * Each MFE provides its own `IntlProvider` to make its localized messages available to all the components of that MFE.
   (Note: since we don't have a build step, currently the messages are not compiled - TODO: implement that).
 
-
 ## How to run (development mode)
 
 1. Check out this repository and clone/update the submodules too.
@@ -45,3 +44,21 @@
 4. Run this on your host with `npm run dev`
 5. Access it at http://apps.local.overhang.io:1995/ or http://apps.local.edly.io:1995/ (likely only one of these will
    work, depending on your Tutor config - we need the CORS whitelist for that domain name.)
+
+## Visualizing bundle result
+
+Simply run `npx vite-bundle-visualizer` to produce this graph of the bundle components. Note that `embed` (red) refers
+to the profile MFE and `index` (green-blue) refers to the shell.
+
+What you can see:
+* Only one version of `react-dom.production.min.js` is loaded.
+* _Two_ versions of Paragon are present, but it's because each part (shell, profile) only loads the parts that it
+  actually needs (tree-shaking). There seems to be no overlap between them.
+  TODO: investigate how to tell Vite to include _all_ of Paragon in the shell bundle proactively.
+* 100 KB is for an `intl-relativetimeformat` polyfill that `frontend-platform` includes. TODO: remove it.
+* For some reason, Studio Header is included in the bundle (though it's tiny).
+* `i18n-iso-languages` and `i18n-iso-countries` are rather large dependencies of `frontend-platform` that only appear
+  in the profile MFE bundle. I think this is again because of tree-shaking. There is a long-standing TODO to load these
+  dynamically rather than including all the languages in the bundle. TODO: that.
+
+![Visualization of bundle components](./readme-bundles.png)
