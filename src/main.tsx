@@ -38,7 +38,9 @@ subscribe(APP_READY, () => {
 
 subscribe(APP_INIT_ERROR, (error: unknown) => {
   ReactDOM.createRoot(document.getElementById('root')!).render(
-    <ErrorPage message={error && typeof error === "object" && 'message' in error ? error.message : error} />
+    <ErrorPage
+      message={error && typeof error === "object" && 'message' in error ? error.message as string : String(error)}
+    />
   );
 });
 

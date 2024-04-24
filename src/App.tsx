@@ -8,7 +8,8 @@ import * as MFEs from './mfe-loaders';
 
 
 function App() {
-  const { authenticatedUser } = React.useContext(AppContext);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { authenticatedUser } = React.useContext(AppContext as React.Context<{authenticatedUser: null|any}>);
   const username = authenticatedUser?.username ?? '';
 
   return (

@@ -9,14 +9,6 @@ declare module '@edx/frontend-platform' {
   const getConfig: () => Record<string, any>;
 }
 
-declare module '@edx/frontend-platform/react' {
-  const AppProvider: React.FC<any>;
-  const AppContext: React.Context<any>;
-  const ErrorPage: React.FC<any>;
-  const ErrorBoundary: React.FC<any>;
-  const PageWrap: React.FC<any>;
-}
-
 declare module '@edx/frontend-platform/i18n' {
     export {
         useIntl,
