@@ -4,7 +4,7 @@ import { AppContext } from '@edx/frontend-platform/react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-import { LoadProfileMFE } from './LoadProfileMFE';
+import * as MFEs from './mfe-loaders';
 
 
 function App() {
@@ -15,12 +15,21 @@ function App() {
     <Suspense fallback={'...'}>
       <Router>
         <Routes>
-          <Route path="/profile/*" element={<LoadProfileMFE />} />
+          <Route path="/profile/*" element={<MFEs.LoadProfileMFE />} />
+          <Route path="/dashboard/*" element={<MFEs.LoadLearnerDashboardMFE />} />
           <Route path="/" element={
-            <p className="my-3 text-center">
-              Home page for all MFEs. You can use the header to navigate but it doesn't yet support soft reload.
-              Here's a "soft" link to your profile: <Link to={`${getConfig().ACCOUNT_PROFILE_URL}/u/${username}`}>Profile MFE</Link>
-            </p>
+            <div className="m-4">
+              <h1>Frontend Shell Home Page (temporary, for dev/testing only)</h1>
+              <p className="my-3">
+                This is a home page for all MFEs. You can use the header to navigate but it doesn't yet support "soft"
+                navigation. The links below do (i.e. the header/footer will stay in place when you click them).<br />
+              </p>
+              <h2>Embedded MFEs</h2>
+              <ul>
+                <li><Link to={`${getConfig().ACCOUNT_PROFILE_URL}/u/${username}`}>Profile MFE</Link></li>
+                <li><Link to={`/dashboard/`}>Learner Dashboard MFE</Link></li>
+              </ul>
+            </div>
           } />
         </Routes>
       </Router>

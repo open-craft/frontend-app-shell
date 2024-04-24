@@ -1,6 +1,7 @@
 import { defineConfig, loadEnv, Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import * as path from 'path';
+import fs from 'fs';
 
 // Load the environment variables that we need in the index.html file
 // Vite supports this natively but only if they start with a special prefix to
@@ -15,6 +16,35 @@ const htmlTagsPlugin = (env: Record<string, string>): Plugin => {
       return html;
     },
   }
+}
+
+/** 
+ * Custom Vite plugin that allows each MFE to use the "@/" alias to refer to its
+ * own root folder.
+ */
+const mfeRootAliasPlugin = (): Plugin => {
+  return {
+      name: 'mfe-root-alias', // name of the plugin
+      resolveId(source, importer) {
+          if (source.startsWith('@/')) {
+              if (importer) {
+                  // Check which MFE we're currently "in":
+                  const match = /frontend-app-shell\/frontend-app-([^/]+)\/src\//.exec(importer);
+                  if (match) {
+                      const resolvedPath = path.resolve(__dirname, `./frontend-app-${match[1]}/src/${source.substring(2)}`);
+                      for (const ext of ['', '.ts', '.tsx', '.js', '.jsx', '/index.ts', '/index.tsx', '/index.js', '/index.jsx']) {
+                        if (fs.existsSync(resolvedPath + ext) && fs.statSync(resolvedPath + ext).isFile()) {
+                          // console.log(`✅ Aliased import ${source} in ${importer} became ${resolvedPath + ext}`);
+                          return resolvedPath + ext;
+                        }
+                      }
+                      console.log(`🛑 Aliased import ${source} in ${importer} became ${resolvedPath} but could not be resolved.`);
+                  }
+              }
+          }
+          return null; // Other paths are handled as usual
+      }
+  };
 }
 
 // Define our Vite configuration (https://vitejs.dev/config/)
@@ -35,10 +65,13 @@ export default defineConfig(({ mode }) => {
     server: {
       port: Number(env.PORT),
     },
-    plugins: [react(), htmlTagsPlugin(env)],
+    plugins: [react(), htmlTagsPlugin(env), mfeRootAliasPlugin()],
     resolve: {
       dedupe: [
         "@edx/frontend-platform",
+        "@edx/frontend-component-footer",
+        "@edx/frontend-component-header",
+        "@openedx/frontend-plugin-framework",
         "@openedx/paragon",
         "react",
         "react-dom",

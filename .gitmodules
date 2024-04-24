@@ -10,3 +10,9 @@
 [submodule "frontend-app-profile"]
 	path = frontend-app-profile
 	url = https://github.com/open-craft/frontend-app-profile.git
+[submodule "frontend-app-learner-dashboard"]
+	path = frontend-app-learner-dashboard
+	url = https://github.com/open-craft/frontend-app-learner-dashboard.git
+[submodule "frontend-plugin-framework"]
+	path = frontend-plugin-framework
+	url = https://github.com/open-craft/frontend-plugin-framework.git
