@@ -64,7 +64,7 @@ dependencies that are used by either MFE but not by the shell itself, and the pu
 What you can see:
 * Dependencies are tree-shaken and the bundles are optimized in a very smart way, to avoid duplication.
 * Only one version of `react-dom.production.min.js` is loaded.
-* _Four_ versions of Paragon are present, but it's because each bundle only loads the parts that it actually needs
+* _Four_ separate Paragon bundles are present, but it's because each bundle only loads the parts that it actually needs
   (tree-shaking). There should be no overlap for the actual files/component within each of the four bundles. That is,
   only one bundle will contain `Button`, only one contains `Dropdown`, and so on.
 * 100 KB is for an `intl-relativetimeformat` polyfill that `frontend-platform` includes. TODO: remove it.
