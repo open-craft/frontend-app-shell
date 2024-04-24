@@ -79,3 +79,12 @@ What you can see:
   dynamically rather than including all the languages in the bundle. TODO: that.
 
 ![Visualization of bundle components](./readme-bundles.png)
+
+## Build time comparison
+
+Time to run `npm run build` for:
+* This shell (including full build of both MFEs, header, footer, Paragon SCSS, etc.): **15s** ✅
+
+Compared to:
+* Standalone `frontend-app-profile` (webpack): **41s**
+* Standalone `frontend-app-learner-dashboard` (webpack): **74s**
