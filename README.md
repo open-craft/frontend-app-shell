@@ -31,8 +31,12 @@ and tested independently, but the production deployment process would involve re
 shell (which would take 1-2 minutes? On an M1 Macbook it takes ~28s for `npm ci` and ~15s for `npm run build` but
 this would be slower on a CI container and as additional MFEs get added).
 
-I am going to research if the Vite module federation plugin will allow actual independent deployment with the same
-benefits.
+✅ It should still be possible to use "module federation" with this Vite-based approach, and gain the ability to deploy
+each MFE independently - it simply requires setting up either
+[`vite-plugin-federation`](https://www.npmjs.com/package/@originjs/vite-plugin-federation) or
+[`@module-federation/vite`](https://www.npmjs.com/package/@module-federation/vite). However, I haven't yet tested these.
+And what's more, I suspect that this approach would mean less efficient tree-shaking - for example, the Shell would
+presumably include the full Paragon library, making the initial page load much slower. So there are trade-offs.
 
 ## What's shared in this demo
 
