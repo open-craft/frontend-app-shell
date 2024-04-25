@@ -18,8 +18,23 @@
 3. Full TypeScript support, anywhere you want to use it.
 4. The dev server takes only ~100ms to start and has hot reloading support etc. The hot reloading detects changes in the
    shell, header, footer, and in the contained MFEs.
+5. The production build (including full build and optimization of both MFEs, header, footer, Paragon SCSS, etc.) takes
+   only **15 seconds**. (Compare to 41s for the current `profile` MFE and 74s for the `learner-dashboard` MFE, using
+   frontend-build/webpack.)
 
-## What's shared
+## What this does NOT demonstrate
+
+🛑 To be clear, this is not "module federation". It has some of the same benefits, but does not (currently) allow the
+MFEs to be built or deployed _independently_ in production. Instead, this demo is essentially one super-MFE composed of
+several different smaller MFEs, but they're all built at the same time. As it stands, each MFE could still be developed
+and tested independently, but the production deployment process would involve rebuilding and re-deploying the whole
+shell (which would take 1-2 minutes? On an M1 Macbook it takes ~28s for `npm ci` and ~15s for `npm run build` but
+this would be slower on a CI container and as additional MFEs get added).
+
+I am going to research if the Vite module federation plugin will allow actual independent deployment with the same
+benefits.
+
+## What's shared in this demo
 
 * Only one version of `react`, `react-dom`, `frontend-platform`, `paragon`, and `frontend-plugin-framework` is used, and
   it's the one provided by the shell.
@@ -79,12 +94,3 @@ What you can see:
   dynamically rather than including all the languages in the bundle. TODO: that.
 
 ![Visualization of bundle components](./readme-bundles.png)
-
-## Build time comparison
-
-Time to run `npm run build` for:
-* This shell (including full build of both MFEs, header, footer, Paragon SCSS, etc.): **15s** ✅
-
-Compared to:
-* Standalone `frontend-app-profile` (webpack): **41s**
-* Standalone `frontend-app-learner-dashboard` (webpack): **74s**
