@@ -74,6 +74,19 @@ presumably include the full Paragon library, making the initial page load much s
 5. Access it at http://apps.local.overhang.io:1995/ or http://apps.local.edly.io:1995/ (likely only one of these will
    work, depending on your Tutor config - we need the CORS whitelist for that domain name.)
 
+## Package Structure 🆕
+
+If we continue with this, I don't think it should remain in a separate repo. Instead, I would love to see this and several other pieces consolidated into one `frontend-platform` repo that provides:
+* Core MFE services (analytics, auth, config, init, i18n, logging, pubsub)
+* Core React components (frontend-plugin-framework, AppContext, AppProvider, ErrorBoundary, LoginRedirect, etc.)
+* Header (in same repo but installed via NPM as normal so it can be overridden)
+* Footer  (same)
+* The "shell" which can be used to display one MFE with header+footer (for development), all MFEs with header+footer (OEP-65), or not used at all (e.g. Course Authoring doesn't need a shell as it's one app that provides the full "Studio" experience)
+
+The MFEs currently have a lot of dependencies, but many of them should be removed (React, frontend-build, eslint, various @types, etc.) and replaced with a single dependency on `frontend-platform`, which will provide all of those dependencies. When we upgrade some major thing like React or React-router, it would result in a new version of `frontend-platform` and each MFE could be updated on a separate schedule if necessary.
+
+`frontend-build` can be eliminated, and any remaining build/linting config could be consolidated into the same repo too.
+
 ## Visualizing bundle result
 
 Simply run `npx vite-bundle-visualizer` to produce this graph of the bundle components. In the screenshot below, green
